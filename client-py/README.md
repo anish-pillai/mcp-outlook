@@ -10,9 +10,9 @@
 ## Run
 ```bash
 # from outlook-mcp-client/
-uv run client.py ../outlook-mcp/index.js
+uv run client.py ./server/index.js
 # or
-python client.py ../outlook-mcp/index.js
+python client.py ./server/index.js
 ```
 Then complete the Microsoft login in your browser. Tokens are saved to `~/.outlook-mcp-tokens.json`.
 
