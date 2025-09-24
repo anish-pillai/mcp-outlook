@@ -31,3 +31,8 @@ Thumbs.db
 # Logs
 logs
 *.log
+
+# Lock files
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
