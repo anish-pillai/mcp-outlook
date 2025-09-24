@@ -12,13 +12,20 @@ from dotenv import load_dotenv
 from auth import AuthManager
 
 load_dotenv()  # load environment variables from .env
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 model = "claude-sonnet-4-20250514"
 class MCPClient:
     def __init__(self):
         # Initialize session and client objects
         self.session: Optional[ClientSession] = None
         self.exit_stack = AsyncExitStack()
-        self.anthropic = Anthropic()
+        # Ensure Anthropic API key is configured clearly up front to avoid ambiguous SDK errors later
+        if not ANTHROPIC_API_KEY:
+            raise RuntimeError(
+                "ANTHROPIC_API_KEY is not set. Please add it to client-py/.env or your environment.\n"
+                "Example: create client-py/.env with a line like: ANTHROPIC_API_KEY=sk-ant-..."
+            )
+        self.anthropic = Anthropic(api_key=ANTHROPIC_API_KEY)
         self.auth: Optional[AuthManager] = None
 
     async def connect_to_server(self, server_script_path: str):
